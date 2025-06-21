@@ -9,7 +9,7 @@
     <div class="card-body text-center">
       <h5 class="card-title">{{ recipe.title }}</h5>
       <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
-      <p class="card-text">{{ recipe.aggregateLikes }} likes</p>
+      <p class="card-text">{{ recipe.popularity }} likes</p>
     </div>
   </div>
 </template>
@@ -20,10 +20,10 @@ export default {
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>

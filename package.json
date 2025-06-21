@@ -10,13 +10,14 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
-    "axios": "^1.7.2",
+    "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
     "bootstrap-vue-3": "^0.5.1",
     "core-js": "^3.30.1",
     "vue": "^3.3.4",
-    "vue-axios": "^3.4.1",
-    "vue-router": "^4.2.5"
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.2.5",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.27.5",
