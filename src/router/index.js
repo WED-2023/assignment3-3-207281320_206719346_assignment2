@@ -28,10 +28,15 @@ const routes = [
     component: () => import("../pages/RecipeViewPage.vue"),
   },
   {
+    path: "/example",
+    name: "example",
+    component: () => import("../pages/ExamplePage.vue"),
+  },
+  {
     path: "/:catchAll(.*)",
     name: "notFound",
     component: NotFound,
-  }
+  },
 ];
 
 export default routes;
