@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <MainNavbar />
+    <!-- <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link> |
       <router-link :to="{ name: 'search' }">Search</router-link> |
       <span v-if="!store.username">
@@ -12,16 +13,17 @@
         {{ store.username }}:
         <button @click="logout" class="btn btn-link p-0">Logout</button> |
       </span>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>
 
 <script>
-import { getCurrentInstance } from 'vue';
-
+import { getCurrentInstance } from "vue";
+import MainNavbar from "@/components/global/MainNavbar.vue";
 export default {
   name: "App",
+  components: { MainNavbar },
   setup() {
     const internalInstance = getCurrentInstance();
     const store = internalInstance.appContext.config.globalProperties.store;
@@ -35,13 +37,12 @@ export default {
     };
 
     return { store, logout };
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
 @use "@/scss/form-style.scss" as *;
-
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
