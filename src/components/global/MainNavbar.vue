@@ -1,20 +1,19 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" fixed="top">
-      <b-img :src="logo" alt="Logo" height="60" class="me-4" />
+    <b-navbar toggleable="lg" fixed="top" class="bg-dark">
+      <b-img :src="logo" alt="Logo" height="60" class="me-lg-4" />
 
-      <!-- Use a method to toggle -->
-      <b-navbar-toggle @click="toggleCollapse"></b-navbar-toggle>
+      <!-- Toggle links collapse on small screens -->
+      <b-navbar-toggle target="nav-collapse" class="bg-light" />
 
-      <!-- v-model handles the state -->
-      <b-collapse is-nav v-model="collapsed">
+      <!-- Collapsible content -->
+      <b-collapse id="nav-collapse" is-nav>
         <!-- Left aligned nav items -->
         <b-navbar-nav class="me-auto">
           <b-nav-item
             v-for="item in menuItems"
             :key="item.label"
             :href="item.path"
-            @click="closeCollapse"
           >
             <i :class="`bi bi-${item.icon}`" class="me-1"></i>
             {{ item.label }}
@@ -40,16 +39,7 @@ export default {
     return {
       logo,
       menuItems,
-      collapsed: false,
     };
-  },
-  methods: {
-    toggleCollapse() {
-      this.collapsed = !this.collapsed;
-    },
-    closeCollapse() {
-      this.collapsed = true;
-    },
   },
 };
 </script>

@@ -14,7 +14,7 @@
         <button @click="logout" class="btn btn-link p-0">Logout</button> |
       </span>
     </div> -->
-    <router-view />
+    <router-view class="animate__animated animate__fadeIn" />
   </div>
 </template>
 

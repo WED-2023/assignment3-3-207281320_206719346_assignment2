@@ -17,6 +17,7 @@ import Vuelidate from "@vuelidate/core";
 
 // Global styles
 import "./scss/global.scss";
+import "animate.css";
 
 // Router setup
 const router = createRouter({
