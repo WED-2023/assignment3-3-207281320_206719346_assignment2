@@ -1,20 +1,21 @@
-import { reactive } from 'vue';
+import { reactive } from "vue";
 
 const store = reactive({
-  username: localStorage.getItem('username'),
+  username: localStorage.getItem("username"),
   server_domain: "http://localhost:3000",
+  //server_domain: "http://localhost:3000",
 
   login(username) {
-    localStorage.setItem('username', username);
+    localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
   },
 
   logout() {
     console.log("logout");
-    localStorage.removeItem('username');
+    localStorage.removeItem("username");
     this.username = undefined;
-  }
+  },
 });
 
 export default store;

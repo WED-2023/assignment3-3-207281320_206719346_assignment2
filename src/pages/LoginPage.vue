@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4" style="max-width: 400px;">
+  <div class="container mt-4" style="max-width: 400px">
     <h2 class="mb-4">Login</h2>
     <b-form @submit.prevent="login">
       <!-- Username -->
@@ -48,16 +48,16 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { reactive } from "vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 
 export default {
-  name: 'LoginPage',
+  name: "LoginPage",
   setup() {
     const state = reactive({
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       submitError: null,
     });
 
@@ -77,14 +77,16 @@ export default {
       if (!valid) return;
 
       try {
-        await window.axios.post('/login', {
+        //await window.axios.post('/login', {
+        await window.axios.post(`${window.store.server_domain}/Login`, {
           username: state.username,
           password: state.password,
         });
         window.store.login(state.username);
-        window.router.push('/main');
+        window.router.push("/main");
       } catch (err) {
-        state.submitError = err.response?.data?.message || 'Unexpected error.';
+        state.submitError = err.response?.data?.message || "Unexpected error.";
+        console.error("Login error:", err);
       }
     };
 

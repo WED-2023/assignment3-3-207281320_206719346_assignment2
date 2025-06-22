@@ -57,6 +57,9 @@ app.use(router);
 app.use(VueAxios, axios);
 app.use(BootstrapVue3);
 app.use(Vuelidate);
+window.axios = axios;
+window.store = store;
+window.router = router;
 
 // Register global BootstrapVue3 components
 app.component("BContainer", BContainer);
