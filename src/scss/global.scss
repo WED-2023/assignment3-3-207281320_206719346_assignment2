@@ -1,9 +1,12 @@
 // Custom Color Palette
-$color-background: #ffead8;
-$color-accent: #e8988a;
-$color-primary: #9b177e;
-$color-deep: #2a1458;
-$color-text: #2a1458;
+$color-background: #fbf7f0; // Very light cream
+$color-accent: #e07a5f; // Warm terracotta
+$color-primary: #4a4a4a; // Medium charcoal • headlines, buttons
+$color-deep: #2e2e2e; // Dark charcoal • footers, overlays
+$color-text: #333333; // Soft black • body copy
+$color-muted: #a89f91; // Muted taupe • subtitles, metadata
+$color-highlight: #81b29a; // Sage green • badges, highlights
+$color-link: #3d405b; // Deep desaturated indigo • links/icons
 
 // Utility Classes
 .bg-custom {
@@ -22,20 +25,40 @@ $color-text: #2a1458;
   }
 }
 
+// Navbar
 .navbar {
-  background-color: $color-accent !important;
-  padding: 12px 24px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 90px;
+  background-color: $color-deep;
+  padding: 0px 150px;
 }
 
 .nav-link {
-  color: $color-text;
+  color: $color-highlight;
   font-weight: 600;
-  height: 100%;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all 0.5s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 5px;
+    background-color: $color-deep;
+    transition: width 0.5s ease;
+  }
 
   &:hover {
-    color: $color-primary;
-    text-decoration: underline;
-    background-color: $color-deep;
+    color: $color-text;
+    background-color: $color-highlight;
+
+    &::after {
+      width: 100%;
+    }
   }
 }
