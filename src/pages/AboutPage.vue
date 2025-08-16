@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <h1>ASD</h1>
+    <h1>ABOUT</h1>
   </DefaultLayout>
 </template>
 
@@ -8,7 +8,7 @@
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 
 export default {
-  name: "ExamplePage",
+  name: "AboutPage",
   components: {
     DefaultLayout,
   },

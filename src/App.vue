@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <MainNavbar />
+    <!-- <MainNavbar /> -->
     <!-- <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link> |
       <router-link :to="{ name: 'search' }">Search</router-link> |
@@ -20,10 +20,10 @@
 
 <script>
 import { getCurrentInstance } from "vue";
-import MainNavbar from "@/components/global/MainNavbar.vue";
+//import MainNavbar from "@/components/global/MainNavbar.vue";
 export default {
   name: "App",
-  components: { MainNavbar },
+  //components: { MainNavbar },
   setup() {
     const internalInstance = getCurrentInstance();
     const store = internalInstance.appContext.config.globalProperties.store;
