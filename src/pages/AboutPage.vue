@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout>
+  <DefaultLayout title="About">
     <h1>ABOUT</h1>
   </DefaultLayout>
 </template>

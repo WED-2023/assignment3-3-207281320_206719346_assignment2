@@ -1,16 +1,23 @@
 <template>
-  <DefaultLayout>
-    <h1>ASD</h1>
-  </DefaultLayout>
+  <TwoColumnLayout title="Example Page">
+    <!-- Left column -->
+    <template #left>
+      <h1>one</h1>
+    </template>
+    <!-- Right column -->
+    <template #right>
+      <h1>two</h1>
+    </template>
+  </TwoColumnLayout>
 </template>
 
 <script>
-import DefaultLayout from "../layouts/DefaultLayout.vue";
+import TwoColumnLayout from "../layouts/TwoColumnLayout.vue";
 
 export default {
   name: "ExamplePage",
   components: {
-    DefaultLayout,
+    TwoColumnLayout,
   },
 };
 </script>

@@ -1,3 +1,14 @@
+:root {
+  --color-background: #fbf7f0;
+  --color-accent: #e07a5f;
+  --color-primary: #4a4a4a;
+  --color-deep: #2e2e2e;
+  --color-text: #333333;
+  --color-muted: #a89f91;
+  --color-highlight: #81b29a;
+  --color-link: #3d405b;
+}
+
 // Custom Color Palette
 $color-background: #fbf7f0; // Very light cream
 $color-accent: #e07a5f; // Warm terracotta
@@ -98,4 +109,24 @@ $color-link: #3d405b; // Deep desaturated indigo • links/icons
   background-color: $color-background;
   border-left: 1px solid $color-highlight;
   border-right: 1px solid $color-highlight;
+}
+
+// Cards
+.text-container-overlay {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 80%;
+  height: 60%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10%;
 }
