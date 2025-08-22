@@ -100,7 +100,7 @@ export default {
           password: state.password,
         });
         window.store.login(state.username);
-        window.router.push("/main");
+        window.router.push("/");
       } catch (err) {
         state.submitError = err.response?.data?.message || "Unexpected error.";
         console.error("Login error:", err);

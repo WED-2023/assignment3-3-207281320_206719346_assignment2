@@ -4,6 +4,11 @@ import NotFound from "../pages/NotFoundPage.vue";
 const routes = [
   {
     path: "/",
+    name: "homepage",
+    component: () => import("../pages/HomePage.vue"),
+  },
+  {
+    path: "/main",
     name: "main",
     component: Main,
   },

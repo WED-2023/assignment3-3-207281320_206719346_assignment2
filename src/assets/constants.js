@@ -1,8 +1,16 @@
 // MainNavbar menu items
 export const menuItems = [
-  { label: "Main", path: "/", icon: "house-fill" },
+  { label: "Homepage", path: "/", icon: "house-fill" },
   { label: "Search", path: "/search", icon: "search" },
   { label: "About", path: "/about", icon: "info-circle-fill" },
+];
+
+export const loggedInMenuItems = [
+  { label: "Logout", path: "/logout", icon: "box-arrow-in-right" },
+];
+
+export const loggedOutMenuItems = [
+  { label: "Hello Guest,", path: "#", icon: "house-fill" },
   { label: "Login", path: "/login", icon: "box-arrow-in-right" },
   { label: "Register", path: "/register", icon: "person-plus-fill" },
 ];
