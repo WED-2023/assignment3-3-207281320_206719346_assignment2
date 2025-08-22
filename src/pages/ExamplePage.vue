@@ -1,23 +1,24 @@
 <template>
-  <TwoColumnLayout title="Example Page">
-    <!-- Left column -->
+  <TwoColumnLayout>
     <template #left>
-      <h1>one</h1>
+      <PageTitle>Random Recipes</PageTitle>
+      <RecipePreviewList />
     </template>
-    <!-- Right column -->
-    <template #right>
-      <h1>two</h1>
-    </template>
+    <template #right> text </template>
   </TwoColumnLayout>
 </template>
 
 <script>
 import TwoColumnLayout from "../layouts/TwoColumnLayout.vue";
+import RecipePreviewList from "../components/RecipePreviewList.vue";
+import PageTitle from "@/components/global/PageTitle.vue";
 
 export default {
   name: "ExamplePage",
   components: {
     TwoColumnLayout,
+    RecipePreviewList,
+    PageTitle,
   },
 };
 </script>

@@ -20,6 +20,16 @@ $color-highlight: #81b29a; // Sage green • badges, highlights
 $color-link: #3d405b; // Deep desaturated indigo • links/icons
 
 // Utility Classes
+.btn {
+  background-color: $color-accent;
+  color: white;
+  border: none;
+
+  &:hover {
+    background-color: darken($color-primary, 10%);
+  }
+}
+/*
 .bg-custom {
   background-color: $color-background !important;
 }
@@ -35,6 +45,7 @@ $color-link: #3d405b; // Deep desaturated indigo • links/icons
     background-color: darken($color-primary, 10%);
   }
 }
+*/
 
 // Navbar
 .navbar {

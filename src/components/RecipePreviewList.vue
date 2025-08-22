@@ -4,19 +4,20 @@
 
     <div class="row">
       <div class="col" v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipeCard :recipe="r" fullWidth="true" class="mb-3" />
       </div>
     </div>
+    <b-button class="w-100" @click="updateRecipes">Refresh Recipes</b-button>
   </div>
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
+import RecipeCard from "./global/RecipeCard.vue";
 
 export default {
   name: "RecipePreviewList",
   components: {
-    RecipePreview,
+    RecipeCard,
   },
   props: {
     title: {
