@@ -23,18 +23,24 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ms-auto">
           <!-- Logged user -->
-          <b-nav-item v-if="store.username" href="/my-recipes">
-            <i class="bi bi-journal-text me-2"></i>
-            My Recipes
-          </b-nav-item>
-          <b-nav-item v-if="store.username" href="/my-favorites">
-            <i class="bi bi-heart me-2"></i>
-            My Favorites
-          </b-nav-item>
-          <b-nav-item v-if="store.username" href="#">
-            <i class="bi bi-emoji-smile-fill me-2"></i>
-            {{ store.username }}'s Account
-          </b-nav-item>
+          <b-nav-item-dropdown
+            v-if="store.username"
+            text="Account"
+            class="drop-down-menu"
+          >
+            <template #button-content>
+              <i class="bi bi-emoji-smile-fill me-2"></i>
+              {{ store.username }}'s Account
+            </template>
+            <b-dropdown-item href="/my-recipes">
+              <i class="bi bi-journal-text me-2"></i>
+              My Recipes
+            </b-dropdown-item>
+            <b-dropdown-item href="/my-favorites">
+              <i class="bi bi-heart me-2"></i>
+              My Favorites
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
           <b-nav-item v-if="store.username" @click="logout" href="#">
             <i class="bi bi-box-arrow-in-right me-2"></i> Logout
           </b-nav-item>
@@ -82,3 +88,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>
