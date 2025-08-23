@@ -34,7 +34,9 @@
       </div>
       <!-- Link -->
       <div class="d-flex gap-2">
-        <b-button variant="primary" class="w-100">View Recipe</b-button>
+        <router-link :to="`/recipe/${recipe.id}`" class="w-100">
+          <b-button variant="primary" class="w-100">View Recipe</b-button>
+        </router-link>
         <b-button variant="outline-primary"
           ><i class="bi bi-star"></i
         ></b-button>
