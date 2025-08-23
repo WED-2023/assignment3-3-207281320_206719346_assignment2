@@ -26,7 +26,9 @@
           ><i class="bi bi-clock"></i> How long:
           {{ recipe.readyInMinutes }} minutes</b-card-subtitle
         >
-        <b-card-subtitle class="card-subtitle card-subtitle"
+        <b-card-subtitle
+          class="card-subtitle card-subtitle"
+          v-if="recipe.popularity"
           ><i class="bi bi-hand-thumbs-up"></i> Popularity:
           {{ recipe.popularity }}
           likes</b-card-subtitle
@@ -34,21 +36,40 @@
       </div>
       <!-- Link -->
       <div class="d-flex gap-2">
-        <router-link :to="`/recipe/${recipe.id}`" class="w-100">
+        <router-link
+          :to="`/recipe/${recipe.id || recipe.recipe_id}`"
+          class="w-100"
+        >
           <b-button variant="primary" class="w-100">View Recipe</b-button>
         </router-link>
         <b-button variant="outline-primary"
           ><i class="bi bi-star"></i
         ></b-button>
-        <b-button variant="outline-primary"><i class="bi bi-eye"></i></b-button>
+        <b-button variant="outline-primary"
+          ><i
+            :class="[
+              'bi',
+              store.isRecipeViewed(recipe.id || recipe.recipe_id)
+                ? 'bi-eye-fill'
+                : 'bi-eye',
+            ]"
+          ></i
+        ></b-button>
       </div>
     </b-card>
   </div>
 </template>
 
 <script>
+import store from "@/store.js";
+
 export default {
   name: "RecipeCard",
+  data() {
+    return {
+      store,
+    };
+  },
   props: {
     fullWidth: {
       type: Boolean,

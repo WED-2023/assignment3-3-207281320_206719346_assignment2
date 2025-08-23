@@ -24,7 +24,6 @@
 import MainNavbar from "@/components/global/MainNavbar.vue";
 import PageTitle from "@/components/global/PageTitle.vue";
 import PageFooter from "@/components/global/PageFooter.vue";
-
 export default {
   name: "TwoColumnLayout",
   components: { MainNavbar, PageTitle, PageFooter },

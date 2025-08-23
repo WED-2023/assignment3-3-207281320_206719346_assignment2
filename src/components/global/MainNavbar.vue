@@ -23,6 +23,10 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ms-auto">
           <!-- Logged user -->
+          <b-nav-item v-if="store.username" href="/my-recipes">
+            <i class="bi bi-journal-text me-2"></i>
+            My Recipes
+          </b-nav-item>
           <b-nav-item v-if="store.username" href="#">
             <i class="bi bi-emoji-smile-fill me-2"></i>
             {{ store.username }}'s Account
