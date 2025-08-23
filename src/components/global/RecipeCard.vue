@@ -42,9 +42,14 @@
         >
           <b-button variant="primary" class="w-100">View Recipe</b-button>
         </router-link>
-        <b-button variant="outline-primary"
-          ><i class="bi bi-star"></i
-        ></b-button>
+        <b-button
+          variant="outline-primary"
+          @click="toggleFavorite"
+          :disabled="!store.username"
+          :title="store.username ? 'Toggle favorite' : 'Login to add favorites'"
+        >
+          <i :class="['bi', isFavorited ? 'bi-star-fill' : 'bi-star']"></i>
+        </b-button>
         <b-button variant="outline-primary"
           ><i
             :class="[
@@ -68,6 +73,7 @@ export default {
   data() {
     return {
       store,
+      isFavorited: false,
     };
   },
   props: {
@@ -78,6 +84,41 @@ export default {
     recipe: {
       type: Object,
       required: true,
+    },
+  },
+  async mounted() {
+    await this.checkFavoriteStatus();
+  },
+  methods: {
+    async checkFavoriteStatus() {
+      if (this.store.username && this.recipe) {
+        this.isFavorited = await this.store.isRecipeFavorited(
+          this.recipe.id || this.recipe.recipe_id
+        );
+      }
+    },
+
+    async toggleFavorite() {
+      if (!this.store.username) {
+        alert("Please login to add favorites");
+        return;
+      }
+
+      if (this.isFavorited) {
+        alert("Recipe is already in favorites");
+        return;
+      }
+
+      try {
+        await this.store.addToFavorites(
+          this.recipe.id || this.recipe.recipe_id
+        );
+        this.isFavorited = true;
+        alert("Recipe added to favorites");
+      } catch (error) {
+        console.error("Error adding to favorites:", error);
+        alert("Failed to add to favorites");
+      }
     },
   },
 };
