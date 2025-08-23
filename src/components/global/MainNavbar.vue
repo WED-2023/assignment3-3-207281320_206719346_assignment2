@@ -27,6 +27,10 @@
             <i class="bi bi-journal-text me-2"></i>
             My Recipes
           </b-nav-item>
+          <b-nav-item v-if="store.username" href="/my-favorites">
+            <i class="bi bi-heart me-2"></i>
+            My Favorites
+          </b-nav-item>
           <b-nav-item v-if="store.username" href="#">
             <i class="bi bi-emoji-smile-fill me-2"></i>
             {{ store.username }}'s Account

@@ -31,12 +31,38 @@ const store = reactive({
   },
 
   async createRecipe(recipeData) {
-    const response = await axios.post(
-      `${this.server_domain}/users/myrecipes`,
-      { recipe: recipeData },
-      { withCredentials: true }
-    );
+    const response = await axios.post(`${this.server_domain}/users/myrecipes`, {
+      recipe: recipeData,
+    });
     return response.data;
+  },
+
+  async addToFavorites(recipeId) {
+    try {
+      const response = await axios.post(
+        `${this.server_domain}/users/favorites`,
+        { recipeId, username: this.username }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error adding to favorites:", error);
+      throw error;
+    }
+  },
+
+  async isRecipeFavorited(recipeId) {
+    try {
+      const response = await axios.get(
+        `${this.server_domain}/users/favorites/${recipeId}`,
+        {
+          params: { username: this.username },
+        }
+      );
+      return response.data.isFavorited;
+    } catch (error) {
+      console.error("Error checking favorite status:", error);
+      return false;
+    }
   },
 });
 

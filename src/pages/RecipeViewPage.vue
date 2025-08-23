@@ -219,39 +219,22 @@ export default {
     async toggleFavorite() {
       if (!this.store.username) {
         // Show login prompt or redirect to login
-        this.$bvToast.toast("Please login to add favorites", {
-          title: "Login Required",
-          variant: "warning",
-          solid: true,
-        });
+        alert("Please login to add favorites");
+        return;
+      }
+
+      if (this.isFavorited) {
+        alert("Recipe is already in favorites");
         return;
       }
 
       try {
-        if (this.isFavorited) {
-          await this.store.removeFromFavorites(this.recipe.id);
-          this.isFavorited = false;
-          this.$bvToast.toast("Recipe removed from favorites", {
-            title: "Success",
-            variant: "success",
-            solid: true,
-          });
-        } else {
-          await this.store.addToFavorites(this.recipe.id);
-          this.isFavorited = true;
-          this.$bvToast.toast("Recipe added to favorites", {
-            title: "Success",
-            variant: "success",
-            solid: true,
-          });
-        }
+        await this.store.addToFavorites(this.recipe.id);
+        this.isFavorited = true;
+        alert("Recipe added to favorites");
       } catch (error) {
-        console.error("Error toggling favorite:", error);
-        this.$bvToast.toast("Failed to update favorites", {
-          title: "Error",
-          variant: "danger",
-          solid: true,
-        });
+        console.error("Error adding to favorites:", error);
+        alert("Failed to add to favorites");
       }
     },
   },
