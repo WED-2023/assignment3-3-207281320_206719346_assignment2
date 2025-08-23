@@ -8,10 +8,14 @@ const store = reactive({
 
   addToViewedRecipes(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
-    if (!viewed.includes(recipeId)) {
-      viewed.push(recipeId);
-      localStorage.setItem("viewedRecipes", JSON.stringify(viewed));
-    }
+
+    // Remove the recipe if it already exists in the list
+    viewed = viewed.filter((id) => id !== recipeId);
+
+    // Add the recipe to the beginning of the list
+    viewed.unshift(recipeId);
+
+    localStorage.setItem("viewedRecipes", JSON.stringify(viewed));
   },
   isRecipeViewed(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
