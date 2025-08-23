@@ -5,16 +5,24 @@
       <b-form-input
         id="username"
         v-model="state.username"
-        :state="getValidationState(v$.username)"
+        :state="getUsernameValidationState()"
+        @input="clearUsernameError"
       />
-      <b-form-invalid-feedback v-if="v$.username.$error">
-        <div v-if="!v$.username.required">Username is required.</div>
-        <div v-else-if="!v$.username.minLength || !v$.username.maxLength">
+      <b-form-invalid-feedback v-if="v$.value?.username?.$error">
+        <div v-if="!v$.value?.username?.required">Username is required.</div>
+        <div
+          v-else-if="
+            !v$.value?.username?.minLength || !v$.value?.username?.maxLength
+          "
+        >
           Username must be 3–8 characters.
         </div>
-        <div v-else-if="!v$.username.alpha">
+        <div v-else-if="!v$.value?.username?.alpha">
           Username must contain only letters.
         </div>
+      </b-form-invalid-feedback>
+      <b-form-invalid-feedback v-if="state.usernameError" :state="false">
+        {{ state.usernameError }}
       </b-form-invalid-feedback>
     </b-form-group>
 
@@ -23,9 +31,9 @@
       <b-form-input
         id="firstname"
         v-model="state.firstname"
-        :state="getValidationState(v$.firstname)"
+        :state="getValidationState(v$.value?.firstname)"
       />
-      <b-form-invalid-feedback v-if="v$.firstname.$error">
+      <b-form-invalid-feedback v-if="v$.value?.firstname?.$error">
         First name is required.
       </b-form-invalid-feedback>
     </b-form-group>
@@ -35,9 +43,9 @@
       <b-form-input
         id="lastname"
         v-model="state.lastname"
-        :state="getValidationState(v$.lastname)"
+        :state="getValidationState(v$.value?.lastname)"
       />
-      <b-form-invalid-feedback v-if="v$.lastname.$error">
+      <b-form-invalid-feedback v-if="v$.value?.lastname?.$error">
         Last name is required.
       </b-form-invalid-feedback>
     </b-form-group>
@@ -48,11 +56,11 @@
         id="email"
         type="email"
         v-model="state.email"
-        :state="getValidationState(v$.email)"
+        :state="getValidationState(v$.value?.email)"
       />
-      <b-form-invalid-feedback v-if="v$.email.$error">
-        <div v-if="!v$.email.required">Email is required.</div>
-        <div v-else-if="!v$.email.email">
+      <b-form-invalid-feedback v-if="v$.value?.email?.$error">
+        <div v-if="!v$.value?.email?.required">Email is required.</div>
+        <div v-else-if="!v$.value?.email?.email">
           Please enter a valid email address.
         </div>
       </b-form-invalid-feedback>
@@ -64,9 +72,9 @@
         id="country"
         v-model="state.country"
         :options="countries"
-        :state="getValidationState(v$.country)"
+        :state="getValidationState(v$.value?.country)"
       />
-      <b-form-invalid-feedback v-if="v$.country.$error">
+      <b-form-invalid-feedback v-if="v$.value?.country?.$error">
         Country is required.
       </b-form-invalid-feedback>
     </b-form-group>
@@ -77,17 +85,21 @@
         id="password"
         type="password"
         v-model="state.password"
-        :state="getValidationState(v$.password)"
+        :state="getValidationState(v$.value?.password)"
       />
-      <b-form-invalid-feedback v-if="v$.password.$error">
-        <div v-if="!v$.password.required">Password is required.</div>
-        <div v-else-if="!v$.password.minLength || !v$.password.maxLength">
+      <b-form-invalid-feedback v-if="v$.value?.password?.$error">
+        <div v-if="!v$.value?.password?.required">Password is required.</div>
+        <div
+          v-else-if="
+            !v$.value?.password?.minLength || !v$.value?.password?.maxLength
+          "
+        >
           Password must be 5–10 characters.
         </div>
-        <div v-else-if="!v$.password.hasNumber">
+        <div v-else-if="!v$.value?.password?.hasNumber">
           Password must include at least one number.
         </div>
-        <div v-else-if="!v$.password.hasSpecial">
+        <div v-else-if="!v$.value?.password?.hasSpecial">
           Password must include at least one special character.
         </div>
       </b-form-invalid-feedback>
@@ -99,13 +111,13 @@
         id="confirmedPassword"
         type="password"
         v-model="state.confirmedPassword"
-        :state="getValidationState(v$.confirmedPassword)"
+        :state="getValidationState(v$.value?.confirmedPassword)"
       />
-      <b-form-invalid-feedback v-if="v$.confirmedPassword.$error">
-        <div v-if="!v$.confirmedPassword.required">
+      <b-form-invalid-feedback v-if="v$.value?.confirmedPassword?.$error">
+        <div v-if="!v$.value?.confirmedPassword?.required">
           Confirmation is required.
         </div>
-        <div v-else-if="!v$.confirmedPassword.sameAsPassword">
+        <div v-else-if="!v$.value?.confirmedPassword?.sameAsPassword">
           Passwords do not match.
         </div>
       </b-form-invalid-feedback>
@@ -140,7 +152,7 @@ import {
   alpha,
   email,
 } from "@vuelidate/validators";
-import rawCountries from "../assets/countries";
+import rawCountries from "../../assets/countries.js";
 
 export default {
   name: "RegisterPage",
@@ -154,6 +166,7 @@ export default {
       confirmedPassword: "",
       country: "",
       submitError: null,
+      usernameError: null,
     });
 
     // Custom validators
@@ -188,7 +201,15 @@ export default {
     const v$ = useVuelidate(rules, state);
 
     const getValidationState = (field) => {
+      if (!field) return null;
       return field.$dirty ? !field.$invalid : null;
+    };
+
+    const getUsernameValidationState = () => {
+      if (state.usernameError) {
+        return false; // Show as invalid when there's a username error
+      }
+      return getValidationState(v$.value?.username);
     };
 
     const register = async () => {
@@ -197,6 +218,7 @@ export default {
 
       try {
         state.submitError = null;
+        state.usernameError = null;
 
         console.log("Sending registration data:", {
           username: state.username,
@@ -235,10 +257,28 @@ export default {
         }
       } catch (err) {
         console.error("Registration error:", err);
-        state.submitError =
-          err.response?.data?.message ||
-          "Unexpected error occurred. Please try again.";
+        console.log("Error status:", err.response?.status);
+        console.log("Error message:", err.response?.data?.message);
+
+        // Handle duplicate username error specifically
+        if (
+          err.response?.status === 409 &&
+          err.response?.data?.message === "Username taken"
+        ) {
+          console.log("Setting username error");
+          state.usernameError =
+            "This username is already taken. Please choose a different one.";
+        } else {
+          console.log("Setting general error");
+          state.submitError =
+            err.response?.data?.message ||
+            "Unexpected error occurred. Please try again.";
+        }
       }
+    };
+
+    const clearUsernameError = () => {
+      state.usernameError = null;
     };
 
     return {
@@ -247,6 +287,8 @@ export default {
       register,
       v$,
       getValidationState,
+      getUsernameValidationState,
+      clearUsernameError,
     };
   },
 };

@@ -4,7 +4,7 @@
       <PageTitle>Random Recipes</PageTitle>
       <RecipePreviewList />
     </template>
-    <template #right> text </template>
+    <template #right> <RegisterForm /> </template>
   </TwoColumnLayout>
 </template>
 
@@ -12,6 +12,7 @@
 import TwoColumnLayout from "../layouts/TwoColumnLayout.vue";
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 import PageTitle from "@/components/global/PageTitle.vue";
+import RegisterForm from "@/components/forms/RegisterForm.vue";
 
 export default {
   name: "ExamplePage",
@@ -19,6 +20,7 @@ export default {
     TwoColumnLayout,
     RecipePreviewList,
     PageTitle,
+    RegisterForm,
   },
 };
 </script>
