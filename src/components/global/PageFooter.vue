@@ -3,8 +3,8 @@
     <b-img :src="logo" alt="Logo" height="40" class="me-lg-4" />
     <p>
       <span style="font-weight: bold">Netanel Mordakhay</span> (206719346),
-      <span style="font-weight: bold">Daniel Lyubinsky</span> (206719347),
-      <span style="font-weight: bold">Noa Argamani</span> (206719348)
+      <span style="font-weight: bold">Daniel Lyubansky</span> (207281320),
+      <span style="font-weight: bold">Noa Argamani</span> (318859014)
     </p>
   </div>
 </template>
