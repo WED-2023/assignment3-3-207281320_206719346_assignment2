@@ -105,6 +105,12 @@ export default {
     try {
       const recipeId = this.$route.params.recipeId;
 
+      // Check if this is a family recipe
+      if (recipeId.startsWith("family_")) {
+        await this.loadFamilyRecipe(recipeId);
+        return;
+      }
+
       // First, try to get the recipe from user's database
       let userRecipe = null;
       if (this.$root.store.username) {
@@ -213,6 +219,54 @@ export default {
     }
   },
   methods: {
+    async loadFamilyRecipe(recipeId) {
+      try {
+        // Import family recipes
+        const familyRecipes = await import("@/assets/familyRecipes.js");
+        const recipe = familyRecipes.default.find(
+          (r) => r.recipe_id === recipeId
+        );
+
+        if (!recipe) {
+          this.$router.replace("/NotFound");
+          return;
+        }
+
+        // Format family recipe to match the expected structure
+        this.recipe = {
+          _instructions: recipe.analyzedInstructions.map((step, index) => ({
+            number: index + 1,
+            step: step.steps[0].step,
+          })),
+          analyzedInstructions: recipe.analyzedInstructions,
+          extendedIngredients: recipe.ingredients.map((ingredient, index) => ({
+            id: index,
+            original: ingredient.amount + " " + ingredient.name,
+            amount: ingredient.amount,
+            name: ingredient.name,
+          })),
+          aggregateLikes: recipe.popularity || 0,
+          readyInMinutes: recipe.readyInMinutes,
+          image: recipe.image,
+          title: recipe.title,
+          id: recipe.recipe_id,
+          vegan: recipe.vegan,
+          vegetarian: recipe.vegetarian,
+          glutenFree: recipe.glutenFree,
+          summary: recipe.summary,
+        };
+
+        // Add recipe ID to viewed recipes list using the store
+        store.addToViewedRecipes(recipeId);
+
+        // Check if recipe is favorited
+        await this.checkFavoriteStatus();
+      } catch (error) {
+        console.error("Error loading family recipe:", error);
+        this.$router.replace("/NotFound");
+      }
+    },
+
     async checkFavoriteStatus() {
       if (this.store.username && this.recipe) {
         this.isFavorited = await this.store.isRecipeFavorited(this.recipe.id);

@@ -2,6 +2,7 @@
 export const menuItems = [
   { label: "Homepage", path: "/", icon: "house-fill" },
   { label: "Search", path: "/search", icon: "search" },
+  { label: "Family Recipes", path: "/family-recipes", icon: "heart-fill" },
   { label: "About", path: "/about", icon: "info-circle-fill" },
 ];
 

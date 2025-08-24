@@ -6,6 +6,15 @@ const store = reactive({
   server_domain: "http://localhost:3000",
   //server_domain: "http://localhost:3000",
 
+  // Session storage methods for last search
+  getLastSearch() {
+    return sessionStorage.getItem("lastSearch");
+  },
+
+  setLastSearch(searchQuery) {
+    sessionStorage.setItem("lastSearch", searchQuery);
+  },
+
   addToViewedRecipes(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
 
