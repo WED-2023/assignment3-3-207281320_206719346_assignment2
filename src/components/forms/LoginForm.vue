@@ -91,7 +91,15 @@ export default {
           password: state.password,
         });
         window.store.login(state.username);
-        window.router.push("/");
+
+        // If home page, refresh the page
+        // (for favorite button to work)
+        if (window.router.currentRoute.value.path === "/") {
+          window.router.go(0);
+        } else {
+          // Navigate to homepage
+          window.router.push("/");
+        }
       } catch (err) {
         state.submitError = err.response?.data?.message || "Unexpected error.";
         console.error("Login error:", err);
