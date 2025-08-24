@@ -21,6 +21,17 @@
               ><i :class="['bi', isRecipeViewed ? 'bi-eye-fill' : 'bi-eye']"></i
             ></b-button>
           </div>
+          <div class="mt-3">
+            <b-button
+              variant="success"
+              class="w-100"
+              @click="makeMeal"
+              size="lg"
+            >
+              <i class="bi bi-utensils me-2"></i>
+              Make Meal
+            </b-button>
+          </div>
         </div>
         <div>
           <div class="mb-3">
@@ -311,6 +322,14 @@ export default {
         console.error("Error adding to favorites:", error);
         alert("Failed to add to favorites");
       }
+    },
+
+    makeMeal() {
+      localStorage.setItem(
+        `recipe_${this.recipe.id}`,
+        JSON.stringify(this.recipe)
+      );
+      this.$router.push(`/make-meal/${this.recipe.id}`);
     },
   },
 };

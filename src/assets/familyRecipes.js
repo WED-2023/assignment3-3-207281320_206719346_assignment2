@@ -150,7 +150,7 @@ const familyRecipes = [
   },
   {
     recipe_id: "family_003",
-    title: "Jeniffer's Traditional Pirozhki",
+    title: "Marina's Traditional Pirozhki",
     readyInMinutes: 120,
     image:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=300&fit=crop",
@@ -158,7 +158,7 @@ const familyRecipes = [
     vegan: false,
     vegetarian: false,
     glutenFree: false,
-    owner: "Jeniffer Lyubansky",
+    owner: "Marina Lyubansky",
     cookedAt: "Whenever you need a boost for your day",
     ingredients: [
       { amount: 1, name: "cup warm milk (110 degrees F/45 degrees C)" },

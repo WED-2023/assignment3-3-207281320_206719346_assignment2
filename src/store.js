@@ -6,7 +6,7 @@ const store = reactive({
   server_domain: "http://localhost:3000",
   //server_domain: "http://localhost:3000",
 
-  // Session storage methods for last search
+  // Last search stuff
   getLastSearch() {
     return sessionStorage.getItem("lastSearch");
   },
@@ -15,27 +15,28 @@ const store = reactive({
     sessionStorage.setItem("lastSearch", searchQuery);
   },
 
+  // Viewed recipes stuff
   addToViewedRecipes(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
 
-    // Convert all IDs to strings for consistency
+    // to string
     viewed = viewed.map((id) => String(id));
     const stringRecipeId = String(recipeId);
 
     // Remove the recipe if it already exists in the list
     viewed = viewed.filter((id) => id !== stringRecipeId);
 
-    // Add the recipe to the beginning of the list
+    // Add to the beginning for last viewed
     viewed.unshift(stringRecipeId);
 
     localStorage.setItem("viewedRecipes", JSON.stringify(viewed));
   },
   isRecipeViewed(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
-    // Ensure both the stored IDs and the input ID are strings for comparison
     return viewed.map((id) => String(id)).includes(String(recipeId));
   },
 
+  // Login stuff
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -48,6 +49,7 @@ const store = reactive({
     this.username = undefined;
   },
 
+  // Recipe stuff
   async createRecipe(recipeData) {
     const response = await axios.post(`${this.server_domain}/users/myrecipes`, {
       recipe: recipeData,
@@ -55,6 +57,7 @@ const store = reactive({
     return response.data;
   },
 
+  // Favorites stuff
   async addToFavorites(recipeId) {
     try {
       const response = await axios.post(
@@ -81,6 +84,36 @@ const store = reactive({
       console.error("Error checking favorite status:", error);
       return false;
     }
+  },
+
+  // Cooking progress stuff
+  getRecipeCookingProgress(recipeId) {
+    const progress = JSON.parse(
+      sessionStorage.getItem("cookingProgress") || "[]"
+    );
+    return progress.find((item) => item.recipeId === String(recipeId)) || null;
+  },
+
+  updateRecipeProgress(recipeId, completedSteps, servings) {
+    const progress = JSON.parse(
+      sessionStorage.getItem("cookingProgress") || "[]"
+    );
+    const recipeIndex = progress.findIndex(
+      (item) => item.recipeId === String(recipeId)
+    );
+
+    if (recipeIndex !== -1) {
+      progress[recipeIndex].completedSteps = completedSteps;
+      progress[recipeIndex].servings = servings;
+    } else {
+      progress.push({
+        recipeId: String(recipeId),
+        completedSteps: completedSteps,
+        servings: servings,
+      });
+    }
+
+    sessionStorage.setItem("cookingProgress", JSON.stringify(progress));
   },
 });
 
