@@ -14,11 +14,8 @@
       </div>
       <!-- Logged user -->
       <div v-else>
-        <PageTitle>Welcome, {{ store.username }}</PageTitle>
-        <p>
-          This is a website for sharing recipes. You can search for recipes, add
-          your own recipes, and view other users' recipes.
-        </p>
+        <PageTitle>Last Viewed Recipes</PageTitle>
+        <RecipeLastViewed />
       </div>
     </template>
   </TwoColumnLayout>
@@ -26,13 +23,20 @@
 
 <script>
 import RecipePreviewList from "@/components/RecipePreviewList.vue";
+import RecipeLastViewed from "@/components/RecipeLastViewed.vue";
 import TwoColumnLayout from "@/layouts/TwoColumnLayout.vue";
 import PageTitle from "@/components/global/PageTitle.vue";
 import LoginForm from "@/components/forms/LoginForm.vue";
 
 export default {
   name: "HomePage",
-  components: { TwoColumnLayout, RecipePreviewList, PageTitle, LoginForm },
+  components: {
+    TwoColumnLayout,
+    RecipePreviewList,
+    RecipeLastViewed,
+    PageTitle,
+    LoginForm,
+  },
   computed: {
     store() {
       return this.$root.store;
