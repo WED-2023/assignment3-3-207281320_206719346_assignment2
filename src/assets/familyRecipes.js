@@ -9,6 +9,8 @@ const familyRecipes = [
     vegan: false,
     vegetarian: false,
     glutenFree: false,
+    owner: "mom",
+    cookedAt: "shabat dinner",
     ingredients: [
       { amount: 0.33, name: "cup butter" },
       { amount: 0.5, name: "teaspoon ground black pepper" },
@@ -88,6 +90,8 @@ const familyRecipes = [
     vegan: false,
     vegetarian: true,
     glutenFree: true,
+    owner: "mom",
+    cookedAt: "shabat dinner",
     ingredients: [
       { amount: 6, name: "cups water" },
       { amount: 0.75, name: "tablespoon salt" },
@@ -154,6 +158,8 @@ const familyRecipes = [
     vegan: false,
     vegetarian: false,
     glutenFree: false,
+    owner: "mom",
+    cookedAt: "shabat dinner",
     ingredients: [
       { amount: 1, name: "cup warm milk (110 degrees F/45 degrees C)" },
       { amount: 1, name: "(.25 ounce) package active dry yeast" },

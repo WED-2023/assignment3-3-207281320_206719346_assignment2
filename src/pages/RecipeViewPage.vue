@@ -26,13 +26,24 @@
           <div class="mb-3">
             <b-list-group>
               <b-list-group-item
-                >Ready in {{ recipe.readyInMinutes }} minutes</b-list-group-item
+                ><span class="fw-bold">Ready in:</span>
+                {{ recipe.readyInMinutes }} minutes</b-list-group-item
               >
               <b-list-group-item v-if="!recipe.isUserRecipe"
-                >Likes: {{ recipe.aggregateLikes }} likes</b-list-group-item
+                ><span class="fw-bold">Likes:</span>
+                {{ recipe.aggregateLikes }} likes</b-list-group-item
               >
               <b-list-group-item v-if="recipe.isUserRecipe"
-                >Created by: {{ $root.store.username }}</b-list-group-item
+                ><span class="fw-bold">Created by:</span>
+                {{ $root.store.username }}</b-list-group-item
+              >
+              <b-list-group-item variant="primary" v-if="recipe.owner"
+                ><span class="fw-bold">Owner:</span>
+                {{ recipe.owner }}</b-list-group-item
+              >
+              <b-list-group-item variant="primary" v-if="recipe.cookedAt"
+                ><span class="fw-bold">Cooked at:</span>
+                {{ recipe.cookedAt }}</b-list-group-item
               >
             </b-list-group>
           </div>
@@ -259,6 +270,8 @@ export default {
           vegetarian: recipe.vegetarian,
           glutenFree: recipe.glutenFree,
           summary: recipe.summary,
+          owner: recipe.owner,
+          cookedAt: recipe.cookedAt,
         };
 
         // Add recipe ID to viewed recipes list using the store
