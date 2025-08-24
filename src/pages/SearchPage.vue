@@ -234,7 +234,7 @@ export default {
                 detailedRecipes.push(recipeDetails);
               }
             } catch (error) {
-              console.error("Error fetching recipe details:", error);
+              console.error("error::", error);
             }
           }
 
@@ -242,12 +242,12 @@ export default {
           this.originalRecipes = [...detailedRecipes]; // Keep a copy for filtering
           this.searchPerformed = true;
         } else {
-          console.error("Search failed:", response.statusText);
+          console.error("failed:", response.statusText);
           this.recipes = [];
           this.searchPerformed = true;
         }
       } catch (error) {
-        console.error("Search error:", error);
+        console.error("error:", error);
         this.recipes = [];
         this.searchPerformed = true;
       }
