@@ -9,17 +9,22 @@ const store = reactive({
   addToViewedRecipes(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
 
+    // Convert all IDs to strings for consistency
+    viewed = viewed.map((id) => String(id));
+    const stringRecipeId = String(recipeId);
+
     // Remove the recipe if it already exists in the list
-    viewed = viewed.filter((id) => id !== recipeId);
+    viewed = viewed.filter((id) => id !== stringRecipeId);
 
     // Add the recipe to the beginning of the list
-    viewed.unshift(recipeId);
+    viewed.unshift(stringRecipeId);
 
     localStorage.setItem("viewedRecipes", JSON.stringify(viewed));
   },
   isRecipeViewed(recipeId) {
     let viewed = JSON.parse(localStorage.getItem("viewedRecipes") || "[]");
-    return viewed.includes(recipeId);
+    // Ensure both the stored IDs and the input ID are strings for comparison
+    return viewed.map((id) => String(id)).includes(String(recipeId));
   },
 
   login(username) {

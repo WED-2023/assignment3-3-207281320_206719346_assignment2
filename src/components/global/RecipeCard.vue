@@ -51,14 +51,7 @@
           <i :class="['bi', isFavorited ? 'bi-star-fill' : 'bi-star']"></i>
         </b-button>
         <b-button variant="outline-primary"
-          ><i
-            :class="[
-              'bi',
-              store.isRecipeViewed(recipe.id || recipe.recipe_id)
-                ? 'bi-eye-fill'
-                : 'bi-eye',
-            ]"
-          ></i
+          ><i :class="['bi', isRecipeViewed ? 'bi-eye-fill' : 'bi-eye']"></i
         ></b-button>
       </div>
     </b-card>
@@ -84,6 +77,12 @@ export default {
     recipe: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    isRecipeViewed() {
+      const recipeId = this.recipe.id || this.recipe.recipe_id;
+      return store.isRecipeViewed(String(recipeId));
     },
   },
   async mounted() {
