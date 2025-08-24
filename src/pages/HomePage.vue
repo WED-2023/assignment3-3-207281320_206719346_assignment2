@@ -42,5 +42,8 @@ export default {
       return this.$root.store;
     },
   },
+  mounted() {
+    document.title = "Grandma's Recipes";
+  },
 };
 </script>

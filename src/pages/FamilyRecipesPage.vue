@@ -38,6 +38,7 @@ export default {
     this.familyRecipes.forEach((recipe) => {
       store.addToViewedRecipes(recipe.recipe_id);
     });
+    document.title = "Grandma's Recipes - Family Recipes";
   },
 };
 </script>

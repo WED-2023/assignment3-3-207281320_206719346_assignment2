@@ -189,6 +189,7 @@ export default {
     },
   },
   mounted() {
+    document.title = "Grandma's Recipes - Search";
     // Check if there's a last search in sessionStorage // TODO: CHECK BUG, SESSION STORAGE IS NOT WORKING???
     const lastSearch = store.getLastSearch();
     if (lastSearch) {

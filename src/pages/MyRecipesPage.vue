@@ -51,6 +51,7 @@ export default {
     };
   },
   async mounted() {
+    document.title = "Grandma's Recipes - My Recipes";
     await this.loadMyRecipes();
   },
   methods: {

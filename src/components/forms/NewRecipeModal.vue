@@ -210,7 +210,7 @@ export default {
       },
     },
     isFormValid() {
-      const valid =
+      return (
         this.recipe.title.trim() &&
         this.recipe.summary.trim() &&
         Number(this.recipe.readyInMinutes) > 0 &&
@@ -219,22 +219,8 @@ export default {
           (ing) =>
             ing.amount && ing.name && ing.amount.trim() && ing.name.trim()
         ) &&
-        this.recipe.instructions.some((inst) => inst.trim());
-
-      console.log("Form validation check:", {
-        title: this.recipe.title.trim(),
-        summary: this.recipe.summary.trim(),
-        readyInMinutes: Number(this.recipe.readyInMinutes),
-        servings: Number(this.recipe.servings),
-        ingredients: this.recipe.ingredients.some(
-          (ing) =>
-            ing.amount && ing.name && ing.amount.trim() && ing.name.trim()
-        ),
-        instructions: this.recipe.instructions.some((inst) => inst.trim()),
-        isValid: valid,
-      });
-
-      return valid;
+        this.recipe.instructions.some((inst) => inst.trim())
+      );
     },
   },
   methods: {
@@ -293,6 +279,9 @@ export default {
         this.$emit("recipe-created", recipeData);
         this.resetForm();
         this.showModal = false;
+
+        // Redirect to my-recipes page after successful creation
+        window.router.push("/my-recipes");
       } catch (error) {
         console.error("Error creating recipe:", error);
       }

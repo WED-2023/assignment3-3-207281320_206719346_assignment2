@@ -88,6 +88,11 @@ export default {
     TwoColumnLayout,
     PageTitle,
   },
+  mounted() {
+    document.title = this.recipe
+      ? `Grandma's Recipes - ${this.recipe.title}`
+      : "Grandma's Recipes";
+  },
   data() {
     return {
       recipe: null,

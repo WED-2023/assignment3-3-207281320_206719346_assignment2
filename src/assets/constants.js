@@ -2,11 +2,11 @@
 export const menuItems = [
   { label: "Homepage", path: "/", icon: "house-fill" },
   { label: "Search", path: "/search", icon: "search" },
-  { label: "Family Recipes", path: "/family-recipes", icon: "heart-fill" },
   { label: "About", path: "/about", icon: "info-circle-fill" },
 ];
 
 export const loggedInMenuItems = [
+  { label: "New Recipe", path: "#", icon: "plus-circle", action: "new-recipe" },
   { label: "Logout", path: "/logout", icon: "box-arrow-in-right" },
 ];
 
@@ -16,6 +16,7 @@ export const loggedOutMenuItems = [
   { label: "Register", path: "/register", icon: "person-plus-fill" },
 ];
 
+/*
 // Color constants
 export const colors = {
   background: "#fbf7f0", // Very light cream
@@ -27,3 +28,4 @@ export const colors = {
   highlight: "#81b29a", // Sage green • badges, highlights
   link: "#3d405b", // Deep desaturated indigo • links/icons
 };
+*/

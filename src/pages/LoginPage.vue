@@ -71,6 +71,9 @@ import TwoColumnLayout from "@/layouts/TwoColumnLayout.vue";
 export default {
   name: "LoginPage",
   components: { TwoColumnLayout },
+  mounted() {
+    document.title = "Grandma's Recipes - Login";
+  },
   setup() {
     const state = reactive({
       username: "",

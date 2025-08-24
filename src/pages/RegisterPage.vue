@@ -36,6 +36,9 @@ import RegisterForm from "@/components/forms/RegisterForm.vue";
 export default {
   name: "RegisterPage",
   components: { TwoColumnLayout, RegisterForm },
+  mounted() {
+    document.title = "Grandma's Recipes - Register";
+  },
   setup() {
     const state = reactive({
       username: "",

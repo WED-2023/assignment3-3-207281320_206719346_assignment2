@@ -144,6 +144,9 @@ export default {
     AboutProfileCard,
     PageTitle,
   },
+  mounted() {
+    document.title = "Grandma's Recipes - About";
+  },
   data() {
     return {
       nati,

@@ -1,6 +1,6 @@
 <template>
   <div class="layout-wrapper">
-    <MainNavbar />
+    <MainNavbar @recipe-created="handleRecipeCreated" />
     <b-container class="content-container pb-3">
       <!-- Page Title -->
       <PageTitle v-if="title">{{ title }}</PageTitle>
@@ -20,6 +20,11 @@ export default {
   components: { MainNavbar, PageTitle, PageFooter },
   props: {
     title: String,
+  },
+  methods: {
+    handleRecipeCreated(recipe) {
+      this.$emit("recipe-created", recipe);
+    },
   },
 };
 </script>

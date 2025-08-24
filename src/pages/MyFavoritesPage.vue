@@ -34,6 +34,7 @@ export default {
     };
   },
   async mounted() {
+    document.title = "Grandma's Recipes - My Favorites";
     await this.loadMyFavorites();
   },
   methods: {
