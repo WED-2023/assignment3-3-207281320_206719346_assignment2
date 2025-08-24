@@ -156,7 +156,9 @@ export default {
           extendedIngredients: recipeData.ingredients.map(
             (ingredient, index) => ({
               id: index,
-              original: ingredient,
+              original: ingredient.amount + " " + ingredient.name,
+              amount: ingredient.amount,
+              name: ingredient.name,
             })
           ),
           aggregateLikes: 0, // User recipes don't have likes

@@ -74,20 +74,31 @@
           :key="index"
           class="mb-2"
         >
-          <b-input-group>
-            <b-form-input
-              v-model="recipe.ingredients[index]"
-              placeholder="Enter ingredient"
-              required
-            ></b-form-input>
-            <b-button
-              variant="outline-danger"
-              @click="removeIngredient(index)"
-              :disabled="recipe.ingredients.length === 1"
-            >
-              <i class="bi bi-trash"></i>
-            </b-button>
-          </b-input-group>
+          <b-row>
+            <b-col md="4">
+              <b-form-input
+                v-model="recipe.ingredients[index].amount"
+                placeholder="Amount (e.g., 2 cups)"
+                required
+              ></b-form-input>
+            </b-col>
+            <b-col md="6">
+              <b-form-input
+                v-model="recipe.ingredients[index].name"
+                placeholder="Ingredient name"
+                required
+              ></b-form-input>
+            </b-col>
+            <b-col md="2">
+              <b-button
+                variant="outline-danger"
+                @click="removeIngredient(index)"
+                :disabled="recipe.ingredients.length === 1"
+              >
+                <i class="bi bi-trash"></i>
+              </b-button>
+            </b-col>
+          </b-row>
         </div>
         <b-button variant="outline-primary" @click="addIngredient" class="mt-2">
           <i class="bi bi-plus"></i> Add Ingredient
@@ -181,7 +192,7 @@ export default {
         readyInMinutes: "",
         servings: "",
         image: "",
-        ingredients: [""],
+        ingredients: [{ amount: "", name: "" }],
         instructions: [""],
         vegan: false,
         vegetarian: false,
@@ -204,7 +215,10 @@ export default {
         this.recipe.summary.trim() &&
         Number(this.recipe.readyInMinutes) > 0 &&
         Number(this.recipe.servings) > 0 &&
-        this.recipe.ingredients.some((ing) => ing.trim()) &&
+        this.recipe.ingredients.some(
+          (ing) =>
+            ing.amount && ing.name && ing.amount.trim() && ing.name.trim()
+        ) &&
         this.recipe.instructions.some((inst) => inst.trim());
 
       console.log("Form validation check:", {
@@ -212,7 +226,10 @@ export default {
         summary: this.recipe.summary.trim(),
         readyInMinutes: Number(this.recipe.readyInMinutes),
         servings: Number(this.recipe.servings),
-        ingredients: this.recipe.ingredients.some((ing) => ing.trim()),
+        ingredients: this.recipe.ingredients.some(
+          (ing) =>
+            ing.amount && ing.name && ing.amount.trim() && ing.name.trim()
+        ),
         instructions: this.recipe.instructions.some((inst) => inst.trim()),
         isValid: valid,
       });
@@ -227,7 +244,7 @@ export default {
       }
     },
     addIngredient() {
-      this.recipe.ingredients.push("");
+      this.recipe.ingredients.push({ amount: "", name: "" });
     },
     removeIngredient(index) {
       if (this.recipe.ingredients.length > 1) {
@@ -245,8 +262,9 @@ export default {
     async handleSubmit() {
       try {
         // Filter out empty ingredients and instructions
-        const filteredIngredients = this.recipe.ingredients.filter((ing) =>
-          ing.trim()
+        const filteredIngredients = this.recipe.ingredients.filter(
+          (ing) =>
+            ing.amount && ing.name && ing.amount.trim() && ing.name.trim()
         );
         const filteredInstructions = this.recipe.instructions.filter((inst) =>
           inst.trim()
@@ -290,7 +308,7 @@ export default {
         readyInMinutes: "",
         servings: "",
         image: "",
-        ingredients: [""],
+        ingredients: [{ amount: "", name: "" }],
         instructions: [""],
         vegan: false,
         vegetarian: false,
