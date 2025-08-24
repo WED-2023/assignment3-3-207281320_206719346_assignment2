@@ -1,7 +1,6 @@
 <template>
   <DefaultLayout title="Search">
     <div>
-      <!-- Search Form -->
       <div class="mb-4">
         <b-row>
           <b-col md="4">
@@ -84,33 +83,10 @@
               ></b-form-select>
             </b-form-group>
           </b-col>
-          <b-col md="6">
-            <b-form-group label="Order:" label-for="order-select">
-              <b-form-select
-                id="order-select"
-                v-model="sortOrder"
-                :options="[
-                  { value: 'asc', text: 'Ascending' },
-                  { value: 'desc', text: 'Descending' },
-                ]"
-                @change="sortRecipes"
-              ></b-form-select>
-            </b-form-group>
-          </b-col>
         </b-row>
       </div>
 
-      <!-- Results Section -->
       <div v-if="searchPerformed">
-        <!-- Results Count -->
-        <div class="results-info mb-3">
-          <h5 v-if="recipes.length > 0">
-            Found {{ recipes.length }} recipe{{
-              recipes.length !== 1 ? "s" : ""
-            }}
-          </h5>
-        </div>
-
         <!-- No Results -->
         <div v-if="recipes.length === 0" class="no-results text-center my-5">
           <h3 class="mt-3">No recipes</h3>
@@ -158,7 +134,6 @@ export default {
       recipes: [],
       searchPerformed: false,
       sortBy: "none",
-      sortOrder: "asc",
       originalRecipes: [],
     };
   },
@@ -200,20 +175,15 @@ export default {
   methods: {
     async searchRecipes() {
       if (!this.searchQuery.trim()) return;
-
-      // Save the search query to sessionStorage
       store.setLastSearch(this.searchQuery);
-
       this.searchPerformed = false;
 
       try {
-        // Build query parameters
         const params = new URLSearchParams({
           query: this.searchQuery,
           number: this.numberOfResults,
         });
 
-        // Add filter parameters if selected
         if (this.selectedCuisine) {
           params.append("cuisine", this.selectedCuisine);
         }
@@ -245,7 +215,6 @@ export default {
           console.log("First recipe popularity:", data[0]?.popularity);
           */
 
-          // Fetch detailed information for each recipe
           const detailedRecipes = [];
           for (const recipe of data) {
             try {
@@ -263,31 +232,9 @@ export default {
               if (detailResponse.ok) {
                 const recipeDetails = await detailResponse.json();
                 detailedRecipes.push(recipeDetails);
-              } else {
-                // Fallback to basic recipe info
-                detailedRecipes.push({
-                  ...recipe,
-                  readyInMinutes: 0,
-                  popularity: 0,
-                  vegan: false,
-                  vegetarian: false,
-                  glutenFree: false,
-                });
               }
             } catch (error) {
-              console.error(
-                `Error fetching details for recipe ${recipe.id}:`,
-                error
-              );
-              // Fallback to basic recipe info
-              detailedRecipes.push({
-                ...recipe,
-                readyInMinutes: 0,
-                popularity: 0,
-                vegan: false,
-                vegetarian: false,
-                glutenFree: false,
-              });
+              console.error("Error fetching recipe details:", error);
             }
           }
 
@@ -325,11 +272,7 @@ export default {
           bValue = b.popularity || 0;
         }
 
-        if (this.sortOrder === "asc") {
-          return aValue - bValue;
-        } else {
-          return bValue - aValue;
-        }
+        return aValue - bValue;
       });
     },
   },

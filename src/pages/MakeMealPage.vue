@@ -37,7 +37,6 @@
     <template #right>
       <div v-if="recipe">
         <div class="recipe-body">
-          <!-- Servings Control -->
           <PageTitle>Ingredients</PageTitle>
           <div class="d-flex align-items-center gap-2 mb-3">
             <label for="servings" class="form-label mb-0">Servings:</label>
