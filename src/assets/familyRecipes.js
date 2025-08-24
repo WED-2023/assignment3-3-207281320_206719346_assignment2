@@ -1,7 +1,7 @@
 const familyRecipes = [
   {
     recipe_id: "family_001",
-    title: "Grandma's Chicken Kiev",
+    title: "Natasha's Chicken Kiev",
     readyInMinutes: 60,
     image:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=300&fit=crop",
@@ -9,8 +9,8 @@ const familyRecipes = [
     vegan: false,
     vegetarian: false,
     glutenFree: false,
-    owner: "mom",
-    cookedAt: "shabat dinner",
+    owner: "Natasha Mordakhay",
+    cookedAt: "Shabat dinner",
     ingredients: [
       { amount: 0.33, name: "cup butter" },
       { amount: 0.5, name: "teaspoon ground black pepper" },
@@ -82,7 +82,7 @@ const familyRecipes = [
   },
   {
     recipe_id: "family_002",
-    title: "Grandma's Traditional Borscht",
+    title: "Mothers's Traditional Borscht",
     readyInMinutes: 60,
     image:
       "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&h=300&fit=crop",
@@ -90,8 +90,8 @@ const familyRecipes = [
     vegan: false,
     vegetarian: true,
     glutenFree: true,
-    owner: "mom",
-    cookedAt: "shabat dinner",
+    owner: "Natasha Mordakhay",
+    cookedAt: "Cold winter days",
     ingredients: [
       { amount: 6, name: "cups water" },
       { amount: 0.75, name: "tablespoon salt" },
@@ -150,7 +150,7 @@ const familyRecipes = [
   },
   {
     recipe_id: "family_003",
-    title: "Grandma's Traditional Pirozhki",
+    title: "Jeniffer's Traditional Pirozhki",
     readyInMinutes: 120,
     image:
       "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=300&fit=crop",
@@ -158,8 +158,8 @@ const familyRecipes = [
     vegan: false,
     vegetarian: false,
     glutenFree: false,
-    owner: "mom",
-    cookedAt: "shabat dinner",
+    owner: "Jeniffer Lyubansky",
+    cookedAt: "Whenever you need a boost for your day",
     ingredients: [
       { amount: 1, name: "cup warm milk (110 degrees F/45 degrees C)" },
       { amount: 1, name: "(.25 ounce) package active dry yeast" },

@@ -38,7 +38,7 @@
                 {{ $root.store.username }}</b-list-group-item
               >
               <b-list-group-item variant="primary" v-if="recipe.owner"
-                ><span class="fw-bold">Owner:</span>
+                ><span class="fw-bold">Cooked by:</span>
                 {{ recipe.owner }}</b-list-group-item
               >
               <b-list-group-item variant="primary" v-if="recipe.cookedAt"
