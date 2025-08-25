@@ -3,8 +3,7 @@ const familyRecipes = [
     recipe_id: "family_001",
     title: "Natasha's Chicken Kiev",
     readyInMinutes: 60,
-    image:
-      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=300&fit=crop",
+    image: "https://i.imgur.com/FWoKOkg.jpeg",
     popularity: 156,
     vegan: false,
     vegetarian: false,
@@ -84,8 +83,7 @@ const familyRecipes = [
     recipe_id: "family_002",
     title: "Mothers's Traditional Borscht",
     readyInMinutes: 60,
-    image:
-      "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&h=300&fit=crop",
+    image: "https://i.imgur.com/jF7EEhG.jpeg",
     popularity: 89,
     vegan: false,
     vegetarian: true,
@@ -152,8 +150,7 @@ const familyRecipes = [
     recipe_id: "family_003",
     title: "Marina's Traditional Pirozhki",
     readyInMinutes: 120,
-    image:
-      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=300&fit=crop",
+    image: "https://i.imgur.com/tib0M1b.jpeg",
     popularity: 203,
     vegan: false,
     vegetarian: false,
