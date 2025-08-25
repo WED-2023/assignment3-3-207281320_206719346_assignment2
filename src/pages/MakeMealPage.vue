@@ -5,8 +5,7 @@
         <div class="mb-3">
           <PageTitle>{{ recipe.title }}</PageTitle>
           <img :src="recipe.image" class="center" />
-
-          <div class="progress-section mt-3">
+          <div class="mt-3">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h5>Progress: {{ completedSteps }} / {{ totalSteps }} steps</h5>
               <span>{{ progressPercentage }}%</span>
@@ -36,7 +35,7 @@
 
     <template #right>
       <div v-if="recipe">
-        <div class="recipe-body">
+        <div>
           <PageTitle>Ingredients</PageTitle>
           <div class="d-flex align-items-center gap-2 mb-3">
             <label for="servings" class="form-label mb-0">Servings:</label>
@@ -46,7 +45,7 @@
               v-model.number="servings"
               type="number"
               min="1"
-              class="form-control text-center"
+              class="text-center"
               style="width: 80px"
             />
           </div>
@@ -77,7 +76,6 @@
                 <b-form-checkbox
                   :value="instruction.number"
                   v-model="completedStepsArray"
-                  class="me-3"
                 ></b-form-checkbox>
                 <div>
                   <strong>Step {{ instruction.number }}</strong

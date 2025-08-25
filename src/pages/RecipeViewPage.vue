@@ -2,7 +2,7 @@
   <TwoColumnLayout>
     <template #left>
       <div v-if="recipe">
-        <div class="recipe-header mb-4">
+        <div class="mb-3">
           <PageTitle>{{ recipe.title }}</PageTitle>
           <img :src="recipe.image" class="center" />
           <div class="d-flex gap-2 mt-3">
@@ -11,9 +11,6 @@
               class="w-100"
               @click="toggleFavorite"
               :disabled="!store.username"
-              :title="
-                store.username ? 'Toggle favorite' : 'Login to add favorites'
-              "
             >
               <i :class="['bi', isFavorited ? 'bi-star-fill' : 'bi-star']"></i>
             </b-button>
@@ -132,13 +129,13 @@ export default {
     try {
       const recipeId = this.$route.params.recipeId;
 
-      // Check if this is a family recipe
+      // 1. check if family recipe
       if (recipeId.startsWith("family_")) {
         await this.loadFamilyRecipe(recipeId);
         return;
       }
 
-      // First, try to get the recipe from user's database
+      // 2. try to get the recipe from db (for user recipe)
       let userRecipe = null;
       if (this.$root.store.username) {
         try {
@@ -147,7 +144,7 @@ export default {
           );
           userRecipe = userResponse.data;
         } catch (error) {
-          // Recipe not found in user's database, continue to Spoonacular
+          // no recipe from db
         }
       }
 
@@ -155,11 +152,11 @@ export default {
       let isUserRecipe = false;
 
       if (userRecipe) {
-        // Use user recipe from database
+        // recipe from db
         isUserRecipe = true;
         response = { data: userRecipe };
       } else {
-        // Try to get from Spoonacular API
+        // no recipe, get from api
         try {
           response = await axios.get(
             this.$root.store.server_domain + "/recipes/" + recipeId,
@@ -203,7 +200,6 @@ export default {
           isUserRecipe: true,
         };
       } else {
-        // Handle Spoonacular recipe format
         let {
           analyzedInstructions,
           extendedIngredients,
@@ -236,10 +232,10 @@ export default {
 
       this.recipe = _recipe;
 
-      // Add recipe ID to viewed recipes list using the store
+      // recipe id to viewed in ls
       store.addToViewedRecipes(recipeId);
 
-      // Check if recipe is favorited
+      // check if favorite
       await this.checkFavoriteStatus();
     } catch (error) {
       console.log(error);
@@ -248,18 +244,12 @@ export default {
   methods: {
     async loadFamilyRecipe(recipeId) {
       try {
-        // Import family recipes
         const familyRecipes = await import("@/assets/familyRecipes.js");
         const recipe = familyRecipes.default.find(
           (r) => r.recipe_id === recipeId
         );
 
-        if (!recipe) {
-          this.$router.replace("/NotFound");
-          return;
-        }
-
-        // Format family recipe to match the expected structure
+        // family recipe fomrat
         this.recipe = {
           _instructions: recipe.analyzedInstructions.map((step, index) => ({
             number: index + 1,
@@ -285,14 +275,13 @@ export default {
           cookedAt: recipe.cookedAt,
         };
 
-        // Add recipe ID to viewed recipes list using the store
+        // add to viewed in ls
         store.addToViewedRecipes(recipeId);
 
-        // Check if recipe is favorited
+        // check if favorite
         await this.checkFavoriteStatus();
       } catch (error) {
-        console.error("Error loading family recipe:", error);
-        this.$router.replace("/NotFound");
+        console.error("error", error);
       }
     },
 
@@ -303,24 +292,17 @@ export default {
     },
 
     async toggleFavorite() {
-      if (!this.store.username) {
-        // Show login prompt or redirect to login
-        alert("Please login to add favorites");
-        return;
-      }
-
       if (this.isFavorited) {
-        alert("Recipe is already in favorites");
+        alert("already favorited");
         return;
       }
 
       try {
         await this.store.addToFavorites(this.recipe.id);
         this.isFavorited = true;
-        alert("Recipe added to favorites");
+        alert("added");
       } catch (error) {
-        console.error("Error adding to favorites:", error);
-        alert("Failed to add to favorites");
+        alert("failed");
       }
     },
 

@@ -46,7 +46,6 @@
           variant="outline-primary"
           @click="toggleFavorite"
           :disabled="!store.username"
-          :title="store.username ? 'Toggle favorite' : 'Login to add favorites'"
         >
           <i :class="['bi', isFavorited ? 'bi-star-fill' : 'bi-star']"></i>
         </b-button>
@@ -98,13 +97,8 @@ export default {
     },
 
     async toggleFavorite() {
-      if (!this.store.username) {
-        alert("Please login to add favorites");
-        return;
-      }
-
       if (this.isFavorited) {
-        alert("Recipe is already in favorites");
+        alert("already favorited");
         return;
       }
 
@@ -113,10 +107,9 @@ export default {
           this.recipe.id || this.recipe.recipe_id
         );
         this.isFavorited = true;
-        alert("Recipe added to favorites");
+        alert("added");
       } catch (error) {
-        console.error("Error adding to favorites:", error);
-        alert("Failed to add to favorites");
+        alert("failed");
       }
     },
   },
