@@ -7,7 +7,7 @@
             <b-form-group label="Search:" label-for="search-input">
               <b-form-input
                 id="search-input"
-                v-model="searchQuery"
+                v-model="fullSearchString"
                 placeholder="SEARCH"
                 @keyup.enter="searchRecipes"
               ></b-form-input>
@@ -58,7 +58,7 @@
           <b-col class="d-flex justify-content-end">
             <b-button
               @click="searchRecipes"
-              :disabled="!searchQuery.trim()"
+              :disabled="!fullSearchString.trim()"
               class="w-100"
             >
               <i class="bi bi-search"></i> Search
@@ -69,7 +69,7 @@
 
       <div class="mb-3">
         <b-row>
-          <b-col md="6">
+          <b-col md="12">
             <b-form-group label="Sort by:" label-for="sort-select">
               <b-form-select
                 id="sort-select"
@@ -87,12 +87,12 @@
       </div>
 
       <div v-if="searchPerformed">
-        <!-- No Results -->
+        <!-- None -->
         <div v-if="recipes.length === 0" class="no-results text-center my-5">
           <h3 class="mt-3">No recipes</h3>
         </div>
 
-        <!-- Recipe Cards -->
+        <!-- Recipe -->
         <div v-else class="recipes-grid">
           <div v-for="recipe in recipes" :key="recipe.id" class="mb-3">
             <RecipeCard :recipe="recipe" :fullWidth="true" />
@@ -100,7 +100,6 @@
         </div>
       </div>
 
-      <!-- Initial State -->
       <div v-else class="text-center mb-3">
         <h3 class="mt-3">No recipes</h3>
       </div>
@@ -140,7 +139,7 @@ export default {
   computed: {
     cuisineOptions() {
       return [
-        { value: "", text: "Any cuisine" },
+        { value: "", text: "None" },
         ...cuisineFilters.map((cuisine) => ({
           value: cuisine,
           text: cuisine,
@@ -149,33 +148,71 @@ export default {
     },
     dietOptions() {
       return [
-        { value: "", text: "Any diet" },
+        { value: "", text: "None" },
         ...dietFilters.map((diet) => ({ value: diet, text: diet })),
       ];
     },
     intoleranceOptions() {
       return [
-        { value: "", text: "Any intolerance" },
+        { value: "", text: "None" },
         ...intolerancesFilters.map((intolerance) => ({
           value: intolerance,
           text: intolerance,
         })),
       ];
     },
+    // filters added to search string
+    fullSearchString: {
+      get() {
+        let searchString = this.searchQuery.trim();
+
+        if (this.selectedCuisine) {
+          searchString += searchString
+            ? ` ${this.selectedCuisine}`
+            : this.selectedCuisine;
+        }
+
+        if (this.selectedDiet) {
+          searchString += searchString
+            ? ` ${this.selectedDiet}`
+            : this.selectedDiet;
+        }
+
+        if (this.selectedIntolerance) {
+          searchString += searchString
+            ? ` ${this.selectedIntolerance}`
+            : this.selectedIntolerance;
+        }
+
+        return searchString;
+      },
+      set(value) {
+        // When the input changes, parse it to extract base query and filters
+        this.parseSearchString(value);
+      },
+    },
+  },
+  watch: {
+    sortBy() {
+      this.sortRecipes();
+    },
   },
   mounted() {
     document.title = "Grandma's Recipes - Search";
-    // Check if there's a last search in sessionStorage // TODO: CHECK BUG, SESSION STORAGE IS NOT WORKING???
     const lastSearch = store.getLastSearch();
     if (lastSearch) {
-      this.searchQuery = lastSearch;
+      this.parseSearchString(lastSearch);
       this.searchRecipes();
     }
   },
   methods: {
+    parseSearchString(searchString) {
+      this.searchQuery = searchString.trim();
+    },
+
     async searchRecipes() {
-      if (!this.searchQuery.trim()) return;
-      store.setLastSearch(this.searchQuery);
+      if (!this.fullSearchString.trim()) return;
+      store.setLastSearch(this.fullSearchString);
       this.searchPerformed = false;
 
       try {
@@ -207,13 +244,6 @@ export default {
 
         if (response.ok) {
           const data = await response.json();
-          // TODO: Remove this after testing. WHYYY WONT IT WORK?!
-          /*
-          console.log("Frontend received data:", data);
-          console.log("First recipe:", data[0]);
-          console.log("First recipe readyInMinutes:", data[0]?.readyInMinutes);
-          console.log("First recipe popularity:", data[0]?.popularity);
-          */
 
           const detailedRecipes = [];
           for (const recipe of data) {
@@ -272,7 +302,7 @@ export default {
           bValue = b.popularity || 0;
         }
 
-        return aValue - bValue;
+        return bValue - aValue;
       });
     },
   },
